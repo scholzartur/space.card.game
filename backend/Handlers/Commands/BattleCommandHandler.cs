@@ -8,14 +8,15 @@ using System.Threading.Tasks;
 
 namespace Space.Card.Game.WebApi.Handlers.Commands
 {
-    public class BattleCommandHandler : IBattleCommandHandler
+    public class BattleCommandHandler<T> : IBattleCommandHandler<T> 
+        where T: IBattleCommandResponse, new()
     {
         public IResponseBase Execute(IRequestBase request)
         {
             var battleRequest = (IBattleCommandRequest)request;
 
             //todo some request automapper needed;
-            return new BattleCommandResponseDto();
+            return new T();
         }
     }
 }

@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace Space.Card.Game.WebApi.Interfaces.Base
 {
-    public interface IHandlerBase
+    public interface IHandlerBase<T> 
+        where T: IResponseBase, new()
     {
         IResponseBase Execute(IRequestBase request);
     }

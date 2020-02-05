@@ -6,31 +6,35 @@ using System.Threading.Tasks;
 
 namespace Space.Card.Game.WebApi.Handlers.Base
 {
-    public class HandlerBase<T> : IHandlerBase
-        where T: IHandlerBase
+    /// <summary>
+    /// The response Type
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class HandlerBase<T> : IHandlerBase<T>
+        where T: IResponseBase, new()
     {
-        private T handler;
-        private IResponseBase response;
+        private IHandlerBase<T> handler;
+        private T response;
         
         //todo reconsider where: new()
         //create response here via automapper or get from unity container
-        public HandlerBase(T _handler, IResponseBase _response)
+        public HandlerBase(IHandlerBase<T> _handler)
         {
             handler = _handler;
-            response = _response;
         }
 
         public IResponseBase Execute(IRequestBase request)
         {
             try
             {
-                response = handler.Execute(request);
+                response = (T) handler.Execute(request);
                 response.Status = "SUCCESS";
                 
                 return response;
             }
-            catch(Exception ex)
+            catch
             {
+                response = new T();
                 response.Status = "FAILURE";
                 response.Message = "Could not process the request";
 

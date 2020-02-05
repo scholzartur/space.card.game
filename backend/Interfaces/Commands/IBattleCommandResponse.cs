@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Space.Card.Game.WebApi.Interfaces.Commands
 {
-    public interface BattleCommandResponse: IResponseBase
+    public interface IBattleCommandResponse: IResponseBase
     {
     }
 }

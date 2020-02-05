@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Space.Card.Game.WebApi.Interfaces.Queries
 {
-    interface IStarshipQueryResponse: IResponseBase
+    public interface IStarshipQueryResponse: IResponseBase
     {
     }
 }

@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Space.Card.Game.WebApi.Dtos
 {
-    public class BattleCommandResponseDto : BattleCommandResponse
+    public class BattleCommandResponseDto : IBattleCommandResponse
     {
         public string Status { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public string Message { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
     }
 }
