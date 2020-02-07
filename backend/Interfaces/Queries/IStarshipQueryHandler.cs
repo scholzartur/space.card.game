@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Space.Card.Game.WebApi.Interfaces.Queries
 {
-    public interface IStarshipQueryHandler<T> : IHandlerBase<T> 
-        where T : IStarshipQueryResponse, new()
+    public interface IStarshipQueryHandler<TResponse> : IHandlerBase<TResponse> 
+        where TResponse : IStarshipQueryResponse, new()
     {
     }
 }

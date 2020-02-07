@@ -10,15 +10,15 @@ namespace Space.Card.Game.WebApi.Handlers.Base
     /// The response Type
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class HandlerBase<T> : IHandlerBase<T>
-        where T: IResponseBase, new()
+    public class HandlerBase<TResponse> : IHandlerBase<TResponse>
+        where TResponse : IResponseBase, new()
     {
-        private IHandlerBase<T> handler;
-        private T response;
+        private IHandlerBase<TResponse> handler;
+        private TResponse response;
         
         //todo reconsider where: new()
         //create response here via automapper or get from unity container
-        public HandlerBase(IHandlerBase<T> _handler)
+        public HandlerBase(IHandlerBase<TResponse> _handler)
         {
             handler = _handler;
         }
@@ -27,14 +27,14 @@ namespace Space.Card.Game.WebApi.Handlers.Base
         {
             try
             {
-                response = (T) handler.Execute(request);
+                response = (TResponse) handler.Execute(request);
                 response.Status = "SUCCESS";
                 
                 return response;
             }
             catch
             {
-                response = new T();
+                response = new TResponse();
                 response.Status = "FAILURE";
                 response.Message = "Could not process the request";
 

@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace Space.Card.Game.WebApi.Handlers.Queires
 {
-    public class StarshipQueryHandler<T> : IStarshipQueryHandler<T> 
-        where T : IStarshipQueryResponse, new ()
+    public class StarshipQueryHandler<TResponse> : IStarshipQueryHandler<TResponse> 
+        where TResponse : IStarshipQueryResponse, new ()
     {
         public IResponseBase Execute(IRequestBase request)
         {
             var starshipQuery = (IStarshipQueryRequest)request;
             //todo
-            return new T();
+            return new TResponse();
         }
     }
 }
