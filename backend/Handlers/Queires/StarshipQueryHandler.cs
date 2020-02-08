@@ -17,5 +17,9 @@ namespace Space.Card.Game.WebApi.Handlers.Queires
             //todo
             return new TResponse();
         }
+
+        public void Dispose()
+        {
+        }
     }
 }

@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Space.Card.Game.WebApi.Model;
 
-namespace Space.Card.Game.WebApi.Database
+namespace Space.Card.Game.WebApi.Infrastructure
 {
     public class MockDataHelper
     {

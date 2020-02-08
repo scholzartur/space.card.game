@@ -20,7 +20,7 @@ namespace Space.Card.Game.WebApi.Model
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; private set; }
-        public readonly int AmountOfPeopleInCrew;
+        public int AmountOfPeopleInCrew { get; private set; }
         public string Name { get; set; }
         public int AmountOfWins { get; private set; }
         public int FightingPotential => AmountOfPeopleInCrew;

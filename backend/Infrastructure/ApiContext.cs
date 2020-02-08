@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Space.Card.Game.WebApi.Model;
 
-namespace Space.Card.Game.WebApi.Database
+namespace Space.Card.Game.WebApi.Infrastructure
 {
     public class ApiContext : DbContext
     {

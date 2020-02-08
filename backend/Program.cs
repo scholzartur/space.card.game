@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Space.Card.Game.WebApi.Database;
+using Space.Card.Game.WebApi.Infrastructure;
 
 namespace Space.Card.Game.WebApi
 {

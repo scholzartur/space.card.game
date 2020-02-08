@@ -9,7 +9,7 @@ namespace Space.Card.Game.WebApi.Interfaces.Commands
 {
     public interface IBattleCommandRequest: IRequestBase
     {
-        public int StarshipOneId { get; set; }
-        public int StarshipTwoId { get; set; }
+         int StarshipOneId { get; set; }
+         int StarshipTwoId { get; set; }
     }
 }

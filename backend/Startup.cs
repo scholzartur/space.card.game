@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,10 +12,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Space.Card.Game.WebApi.Database;
+using Space.Card.Game.WebApi.Infrastructure;
 using Space.Card.Game.WebApi.Dtos;
+using Space.Card.Game.WebApi.Handlers.Base;
 using Space.Card.Game.WebApi.Handlers.Commands;
 using Space.Card.Game.WebApi.Handlers.Queires;
+using Space.Card.Game.WebApi.Interfaces;
+using Space.Card.Game.WebApi.Interfaces.Base;
 using Space.Card.Game.WebApi.Interfaces.Commands;
 using Space.Card.Game.WebApi.Interfaces.Queries;
 
@@ -37,6 +41,9 @@ namespace Space.Card.Game.WebApi
 
             services.AddDbContext<ApiContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddAutoMapper(typeof(AutoMapperProfile));
+           //services.addau
 
             services.AddControllers();
         }
@@ -63,14 +70,14 @@ namespace Space.Card.Game.WebApi
 
         private void RegisterDependencies(IServiceCollection services)
         {
-            services.AddScoped<IBattleCommandResponse, BattleCommandResponseDto>();
-            services.AddScoped<IStarshipQueryResponse, StarshipQueryResponseDto>();
 
-            services.AddScoped<IBattleCommandHandler<BattleCommandResponseDto>,
+            services.AddScoped<IHandlerBase<BattleCommandResponseDto>,
                 BattleCommandHandler<BattleCommandResponseDto>>();
 
-            services.AddScoped<IStarshipQueryHandler<StarshipQueryResponseDto>,
-                StarshipQueryHandler<StarshipQueryResponseDto>>();
+            services.AddScoped<IHandlerExecutor<BattleCommandResponseDto>,
+                HandlerExecutor<BattleCommandResponseDto>>();
+
+
         }
     }
 }
