@@ -1,32 +1,73 @@
-<div class="example-container">
-  <h2>To do</h2>
+<div class="grid-container">
+  <div class="dragList-container">
+    <h2>fightingSideOne</h2>
+    <div id="fightingSideOne"
+      cdkDropList
+      #fightingSideOneList="cdkDropList"
+      [cdkDropListData]="fightingSideOne"
+      [cdkDropListConnectedTo]="[allStarshipsList]"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)">
+      <div class="example-box" *ngFor="let item of fightingSideOne" cdkDrag>{{item}}</div>
+    </div>
+  </div>
 
-  <div
-    cdkDropList
-    #todoList="cdkDropList"
-    [cdkDropListData]="todo"
-    [cdkDropListConnectedTo]="[doneList]"
-    class="example-list"
-    (cdkDropListDropped)="drop($event)">
-    <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item}}</div>
+  <div class="example-button-row">
+    <button mat-button>Basic</button>
+    <button mat-button color="primary">Primary</button>
+    <button mat-button color="accent">Accent</button>
+    <button mat-button color="warn">Warn</button>
+    <button mat-button disabled>Disabled</button>
+    <a mat-button routerLink=".">Link</a>
+  </div>
+
+  <div class="dragList-container">
+    <h2>fightingSideTwo</h2>
+    <div id="fightingSideTwo"
+      cdkDropList
+      #fightingSideTwoList="cdkDropList"
+      [cdkDropListData]="fightingSideTwo"
+      [cdkDropListConnectedTo]="[allStarshipsList]"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)">
+      <div class="example-box" *ngFor="let item of fightingSideTwo" cdkDrag>{{item}}</div>
+    </div>
   </div>
 </div>
 
-<div class="example-container">
-  <h2>Done</h2>
-
-  <div
-    cdkDropList
-    #doneList="cdkDropList"
-    [cdkDropListData]="done"
-    [cdkDropListConnectedTo]="[todoList]"
+<div class="dragList-container">
+  <h2>All starships</h2>
+  <div id="starships"
+  cdkDropList
+    #allStarshipsList="cdkDropList"
+    [cdkDropListData]="allStarships"
+    [cdkDropListConnectedTo]="[fightingSideOneList, fightingSideTwoList]"
     class="example-list"
     (cdkDropListDropped)="drop($event)">
-    <div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
+    <div class="example-box" *ngFor="let item of allStarships" cdkDrag>{{item}}</div>
   </div>
 </div>
 
 
+<mat-card class="example-card">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>Shiba Inu</mat-card-title>
+    <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+  <mat-card-content>
+    <p>
+      The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+      A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+      bred for hunting.
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button color="primary">LIKE</button>
+    <button mat-button>SHARE</button>
+  </mat-card-actions>
+</mat-card>
 
 
 <router-outlet></router-outlet>
