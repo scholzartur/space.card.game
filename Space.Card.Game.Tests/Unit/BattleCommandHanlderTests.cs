@@ -4,6 +4,7 @@ using Space.Card.Game.Tests.Utils;
 using Space.Card.Game.WebApi.Common;
 using Space.Card.Game.WebApi.Dtos;
 using Space.Card.Game.WebApi.Handlers.Commands;
+using Space.Card.Game.WebApi.Infrastructure;
 using Space.Card.Game.WebApi.Interfaces.Base;
 using Space.Card.Game.WebApi.Interfaces.Commands;
 using Xunit;
@@ -11,7 +12,7 @@ using Xunit;
 
 namespace Space.Card.Game.Tests.Unit
 {
-    public class BattleCommandHanlderTest
+    public class BattleCommandHanlderTests
     {
 
         [Theory]
@@ -20,13 +21,14 @@ namespace Space.Card.Game.Tests.Unit
         [InlineData(3, 4)]
         public void Assert_that_starships_with_greater_crew_wins(int starshipOneId, int starshipTwoId)
         {
-            using (var handler = GetBattleCommandHandler())
+            using (var wrapper = new ContextForTests().GetContextWrapper())
             {
                 //Given
+                var handler = GetBattleCommandHandler(wrapper.context);
                 var request = GetBattleCommandRequest(starshipOneId, starshipTwoId);
 
                 //When
-                var result = (IBattleCommandResponse) handler.Execute(request);
+                var result = (IBattleCommandResponse)handler.Execute(request);
 
                 //Then
                 result.WinnerFound.Should().BeTrue();
@@ -35,13 +37,35 @@ namespace Space.Card.Game.Tests.Unit
         }
 
         [Theory]
+        [InlineData(5, 6)]
+        [InlineData(7, 8)]
+        [InlineData(9, 10)]
+        public void Assert_that_starship_winCounter_is_incremented(int starshipOneId, int starshipTwoId)
+        {
+            using (var wrapper = new ContextForTests().GetContextWrapper())
+            {
+                //Given
+                var handler = GetBattleCommandHandler(wrapper.context);
+                var request = GetBattleCommandRequest(starshipOneId, starshipTwoId);
+
+                //When
+                var previousWinCounter = ((IBattleCommandResponse)handler.Execute(request)).WinnerShip.AmountOfWins;
+                var currentWinCounter = ((IBattleCommandResponse)handler.Execute(request)).WinnerShip.AmountOfWins;
+
+                //Then
+                currentWinCounter.Should().Be(previousWinCounter + 1);
+            }
+        }
+
+        [Theory]
         [InlineData(1, 11)]
         [InlineData(2, 12)]
         public void Assert_that_starships_with_equal_crew_draws(int starshipOneId, int starshipTwoId)
         {
-            using (var handler = GetBattleCommandHandler())
+            using (var wrapper = new ContextForTests().GetContextWrapper())
             {
                 //Given
+                var handler = GetBattleCommandHandler(wrapper.context);
                 var request = GetBattleCommandRequest(starshipOneId, starshipTwoId);
 
                 //When
@@ -52,15 +76,17 @@ namespace Space.Card.Game.Tests.Unit
                 result.WinnerShip.Should().BeNull();
             }
         }
-        
+
         [Theory]
-        [InlineData(1, 15)]
-        [InlineData(16, 2)]
+        [InlineData(1, int.MaxValue)]
+        [InlineData(int.MaxValue, 2)]
         public void Assert_that_exception_is_thrown_when_starship_not_found(int starshipOneId, int starshipTwoId)
         {
-            using (var handler = GetBattleCommandHandler())
+
+            using (var wrapper = new ContextForTests().GetContextWrapper())
             {
                 //Given
+                var handler = GetBattleCommandHandler(wrapper.context);
                 var request = GetBattleCommandRequest(starshipOneId, starshipTwoId);
 
                 //When
@@ -72,8 +98,8 @@ namespace Space.Card.Game.Tests.Unit
             }
         }
 
-        private IHandlerBase<BattleCommandResponseDto> GetBattleCommandHandler() =>
-            new BattleCommandHandler<BattleCommandResponseDto>(new ContextForTests().GetContext(), MapperForTests.GetMapper());
+        private IHandlerBase<BattleCommandResponseDto> GetBattleCommandHandler(ApiContext context) =>
+            new BattleCommandHandler<BattleCommandResponseDto>(context, MapperForTests.GetMapper());
 
         private IBattleCommandRequest GetBattleCommandRequest(int id1, int id2) => new BattleCommandRequestDto()
         {

@@ -13,9 +13,6 @@ namespace Space.Card.Game.WebApi.Infrastructure
         public AutoMapperProfile()
         {
             CreateMap<Starship, StarshipDto>();
-            //.ForMember(dest => dest.AmountOfPeopleInCrew,
-            //    o => o.MapFrom(src => src.AmountOfPeopleInCrew));
-
         }
     }
 }

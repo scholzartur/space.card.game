@@ -8,7 +8,8 @@ namespace Space.Card.Game.WebApi.Dtos
 {
     public class StarshipQueryResponseDto : IStarshipQueryResponse
     {
-        public string Status { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string Message { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string Status { get; set; }
+        public string Message { get; set; }
+        public ICollection<StarshipDto> Starships { get; set; }
     }
 }

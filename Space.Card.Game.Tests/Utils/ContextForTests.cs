@@ -7,8 +7,9 @@ namespace Space.Card.Game.Tests.Utils
 {
     public class ContextForTests : IDisposable
     {
-        private ApiContext context;
-        public ApiContext GetContext()
+        public  ApiContext context { get; private set; }
+
+        public ContextForTests GetContextWrapper()
         {
             var options = new DbContextOptionsBuilder<ApiContext>()
                 .UseInMemoryDatabase(databaseName: "InMemoryTempDb")
@@ -17,7 +18,7 @@ namespace Space.Card.Game.Tests.Utils
             context = new ApiContext(options);
             CreateStarships();
 
-            return context;
+            return this;
         }
 
         public void Dispose()
@@ -27,6 +28,7 @@ namespace Space.Card.Game.Tests.Utils
 
         private void CreateStarships()
         {
+
             for (int i = 1; i < 11; i++)
             {
                 context.Starships.Add(
