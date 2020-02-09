@@ -22,10 +22,11 @@ import '../polyfills';
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-    DemoMaterialModule,
     MatNativeDateModule,
     ReactiveFormsModule,
     AppRoutingModule,
+
+    DemoMaterialModule
   ],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
