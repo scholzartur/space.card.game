@@ -1,20 +1,20 @@
 ﻿using Space.Card.Game.WebApi.Dtos;
 using Space.Card.Game.WebApi.Interfaces.Base;
 using Space.Card.Game.WebApi.Interfaces.Commands;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.EntityFrameworkCore.Internal;
 using Space.Card.Game.WebApi.Common;
 using Space.Card.Game.WebApi.Infrastructure;
 using Space.Card.Game.WebApi.Model;
 
 namespace Space.Card.Game.WebApi.Handlers.Commands
 {
-    public class BattleCommandHandler<IBattleCommandResponse> : IHandlerBase<IBattleCommandResponse>
-        where IBattleCommandResponse : Interfaces.Commands.IBattleCommandResponse, new()
+    /// <summary>
+    /// Handles the fight between two starships
+    /// </summary>
+    /// <typeparam name="TResponse">Returns IBattleCommandResponse</typeparam>
+    public class BattleCommandHandler<TResponse> : IHandlerBase<TResponse>
+        where TResponse : IBattleCommandResponse, new()
     {
         private readonly ApiContext context;
         private readonly IMapper mapper;
@@ -40,11 +40,10 @@ namespace Space.Card.Game.WebApi.Handlers.Commands
 
         public void Dispose()
         {
-            context.Starships = null;
             context?.Dispose();
         }
 
-        protected virtual IBattleCommandResponse GetWinner(Starship starshipOne, Starship starshipTwo)
+        protected virtual TResponse GetWinner(Starship starshipOne, Starship starshipTwo)
         {
             bool winnerFound = false;
             Starship winner = null;
@@ -61,7 +60,7 @@ namespace Space.Card.Game.WebApi.Handlers.Commands
                 context.SaveChanges();
             }
 
-            return new IBattleCommandResponse()
+            return new TResponse()
             {
                 WinnerFound = winnerFound,
                 WinnerShip = (winnerFound) ? mapper.Map<StarshipDto>(winner) : null

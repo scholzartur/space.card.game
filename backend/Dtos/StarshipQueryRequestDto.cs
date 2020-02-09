@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Space.Card.Game.WebApi.Interfaces.Queries;
 
 namespace Space.Card.Game.WebApi.Dtos
 {
-    public class StarshipQueryRequestDto
+    public class StarshipQueryRequestDto: IStarshipQueryRequest
     {
     }
 }

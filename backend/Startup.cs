@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using Space.Card.Game.WebApi.Infrastructure;
 using Space.Card.Game.WebApi.Dtos;
 using Space.Card.Game.WebApi.Handlers.Base;
@@ -43,9 +44,17 @@ namespace Space.Card.Game.WebApi
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddAutoMapper(typeof(AutoMapperProfile));
-           //services.addau
 
             services.AddControllers();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Space Card Game API",
+                    Version = "v1"
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,6 +64,12 @@ namespace Space.Card.Game.WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
+            });
 
             app.UseHttpsRedirection();
 
@@ -77,6 +92,11 @@ namespace Space.Card.Game.WebApi
             services.AddScoped<IHandlerExecutor<BattleCommandResponseDto>,
                 HandlerExecutor<BattleCommandResponseDto>>();
 
+            services.AddScoped<IHandlerBase<StarshipQueryResponseDto>,
+                StarshipQueryHandler<StarshipQueryResponseDto>>();
+
+            services.AddScoped<IHandlerExecutor<StarshipQueryResponseDto>,
+                HandlerExecutor<StarshipQueryResponseDto>>();
 
         }
     }
