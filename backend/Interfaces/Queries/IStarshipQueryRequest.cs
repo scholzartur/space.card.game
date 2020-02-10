@@ -9,6 +9,7 @@ namespace Space.Card.Game.WebApi.Interfaces.Queries
 {
     public interface IStarshipQueryRequest: IRequestBase
     {
-        
+         int StartingIndex { get; set; }
+         int AmountToReturn { get; set; }
     }
 }

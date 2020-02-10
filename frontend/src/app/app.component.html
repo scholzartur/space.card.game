@@ -22,9 +22,10 @@
       #fightingSideOneList="cdkDropList"
       [cdkDropListData]="fightingSideOne"
       [cdkDropListConnectedTo]="[allStarshipsList]"
+      [cdkDropListEnterPredicate]="isStarship"
       class="example-list"
       (cdkDropListDropped)="drop($event)">
-      <div class="example-box" *ngFor="let item of fightingSideOne" cdkDrag>{{item}}</div>
+      <div class="example-box" *ngFor="let item of fightingSideOne" cdkDrag>{{item.name}}</div>
     </div>
     </mat-card-content>
   </mat-card>
@@ -43,9 +44,10 @@
       #fightingSideTwoList="cdkDropList"
       [cdkDropListData]="fightingSideTwo"
       [cdkDropListConnectedTo]="[allStarshipsList]"
+      [cdkDropListEnterPredicate]="isStarship"
       class="example-list"
       (cdkDropListDropped)="drop($event)">
-      <div class="example-box" *ngFor="let item of fightingSideTwo" cdkDrag>{{item}}</div>
+      <div class="example-box" *ngFor="let item of fightingSideTwo" cdkDrag>{{item.name}}</div>
     </div>
     </mat-card-content>
   </mat-card>
@@ -65,7 +67,7 @@
           [cdkDropListConnectedTo]="[fightingSideOneList, fightingSideTwoList]"
           class="example-list"
           (cdkDropListDropped)="drop($event)">
-          <div id="starships2" class="example-box" *ngFor="let item of allStarships" cdkDrag>{{item}}</div>
+          <div id="starships2" class="example-box" *ngFor="let item of allStarships" cdkDrag>{{item.name}}</div>
       </div>
     </mat-card-content>
   </mat-card>
@@ -79,10 +81,10 @@
 (page)="pageEvent = getServerData($event)"
 >
 </md-paginator> -->
-<mat-paginator [length]="length"
-               [pageSize]="pageSize"
-               [pageSizeOptions]="[5, 10, 25, 100]"
-               (page)="pageEvent = $event">
+<mat-paginator [length]="allStarshipsCount"
+               [pageSize]=5
+               [pageSizeOptions]="[5, 10]"
+               (page)="pageEvent = getServerData($event)">
 </mat-paginator>
 
 <router-outlet></router-outlet>

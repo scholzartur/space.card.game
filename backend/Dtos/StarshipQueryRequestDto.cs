@@ -6,7 +6,9 @@ using Space.Card.Game.WebApi.Interfaces.Queries;
 
 namespace Space.Card.Game.WebApi.Dtos
 {
-    public class StarshipQueryRequestDto: IStarshipQueryRequest
+    public class StarshipQueryRequestDto : IStarshipQueryRequest
     {
+        public int StartingIndex { get; set; }
+        public int AmountToReturn { get; set; }
     }
 }

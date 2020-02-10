@@ -11,5 +11,6 @@ namespace Space.Card.Game.WebApi.Dtos
         public string Status { get; set; }
         public string Message { get; set; }
         public ICollection<StarshipDto> Starships { get; set; }
+        public int AllStarshipsCount { get; set; }
     }
 }

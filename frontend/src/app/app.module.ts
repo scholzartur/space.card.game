@@ -7,12 +7,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DemoMaterialModule } from './material-module';
 import { AppRoutingModule } from './app-routing.module';
 
-
 import { AppComponent } from './app.component';
+import { CardDetailsModalComponent } from './components/card-details-modal/card-details-modal.component';
+
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { SpaceHttpService } from './services/space-http.service';
 
 import '../polyfills';
-import { CardDetailsModalComponent } from './card-details-modal/card-details-modal.component';
 
 @NgModule({
   declarations: [
@@ -27,10 +28,10 @@ import { CardDetailsModalComponent } from './card-details-modal/card-details-mod
     MatNativeDateModule,
     ReactiveFormsModule,
     AppRoutingModule,
-
-    DemoMaterialModule
+    DemoMaterialModule,
   ],
   providers: [
+    SpaceHttpService,
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
   ],
   entryComponents: [AppComponent],

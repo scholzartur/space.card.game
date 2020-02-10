@@ -15,8 +15,8 @@ namespace Space.Card.Game.WebApi.Handlers.Queires
     /// Handles starship retriving
     /// </summary>
     /// <typeparam name="TResponse">Returns IStarshipQueryResponse</typeparam>
-    public class StarshipQueryHandler<TResponse> : IHandlerBase<TResponse> 
-        where TResponse : IStarshipQueryResponse, new ()
+    public class StarshipQueryHandler<TResponse> : IHandlerBase<TResponse>
+        where TResponse : IStarshipQueryResponse, new()
     {
         private readonly ApiContext context;
         private readonly IMapper mapper;
@@ -29,11 +29,14 @@ namespace Space.Card.Game.WebApi.Handlers.Queires
 
         public IResponseBase Execute(IRequestBase request)
         {
-            var starshipQuery = (IStarshipQueryRequest)request;
+            var query = (IStarshipQueryRequest)request;
+            var starships = context.Starships.Skip(query.StartingIndex - 1)
+                                             .Take(query.AmountToReturn).ToList();
 
             return new TResponse
             {
-                Starships =  mapper.Map<StarshipDto[]>(context.Starships.ToList())
+                AllStarshipsCount = context.Starships.Count(),
+                Starships = mapper.Map<StarshipDto[]>(starships)
             };
         }
 

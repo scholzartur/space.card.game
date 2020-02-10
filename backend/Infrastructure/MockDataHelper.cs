@@ -25,16 +25,14 @@ namespace Space.Card.Game.WebApi.Infrastructure
 
         private static void CreateStarships()
         {
-            for (int i = 0; i < 20; i++)
+            for (int i = 1; i < 20; i++)
             {
-                context.Starships.Add(
-                    new Starship(RandomNumberGenerator.GetInt32(0, 10))
-                    {
-                        Name = "Starship " + i,
-                    });
+                var starship = new Starship(RandomNumberGenerator.GetInt32(1, 10));
+                context.Starships.Add(starship);
+                //save to get the right id after
+                context.SaveChanges();
+                starship.Name = "Starship " + starship.Id;
             }
-
-            context.SaveChanges();
         }
     }
 }

@@ -1,8 +1,11 @@
 import { Component, Inject } from '@angular/core';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';
 import { PageEvent } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
-import { CardDetailsModalComponent } from './card-details-modal/card-details-modal.component';
+import { CardDetailsModalComponent } from './components/card-details-modal/card-details-modal.component';
+import { SpaceHttpService } from './services/space-http.service';
+import { StarshipQueryRequestDto } from './dtos/requests/starship-query-request.dto';
+import { Starship } from './dtos/view/starship.dto';
 
 @Component({
   selector: 'app-root',
@@ -15,52 +18,25 @@ export class AppComponent {
   name = 'ss';
 
   pageEvent: PageEvent;
-  datasource: null;
   pageIndex: number;
-  pageSize: number;
-  length: number;
+  pageSize = 5;
+  allStarshipsCount = 0;
 
   title = 'space-card-game';
 
-  allStarships = [
-    'Get to work',
-    'Pick up groceries',
-    'Go home',
-    'Fall asleep',
-    'Walk dog',
-    'Get up',
-    'Get to work',
-    'Pick up groceries',
-    'Go home',
-    'Fall asleep',
-    'Walk dog',
-    'Get up',
-  ];
+  allStarships: Starship[] = [];
+  fightingSideOne: Starship[] = [];
+  fightingSideTwo: Starship[] = [];
 
-  fightingSideOne = [];
+  constructor(public dialog: MatDialog, public httpService: SpaceHttpService) {
+    this.getStarships(1, 5);
+  }
 
-  fightingSideTwo = [];
-
-  constructor(public dialog: MatDialog) {}
-
-  // public getServerData(event?: PageEvent) {
-  //   this.fooService.getdata(event).subscribe(
-  //     response => {
-  //       if (response.error) {
-  //         // handle error
-  //       } else {
-  //         this.datasource = response.data;
-  //         this.pageIndex = response.pageIndex;
-  //         this.pageSize = response.pageSize;
-  //         this.length = response.length;
-  //       }
-  //     },
-  //     error => {
-  //       // handle error
-  //     }
-  //   );
-  //   return event;
-  // }
+  public getServerData(event?: PageEvent) {
+    const startingIndex = event.pageSize * event.pageIndex;
+    this.getStarships(startingIndex, event.pageSize);
+    return event;
+  }
 
 
   openDialog(): void {
@@ -75,10 +51,12 @@ export class AppComponent {
     });
   }
 
-
-
-
-
+  isStarship(drag: CdkDrag) {
+    if (drag.element.nativeElement.textContent !== '') {
+      return true;
+    }
+    return false;
+  }
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
@@ -91,8 +69,24 @@ export class AppComponent {
         event.currentIndex);
     }
   }
+  private getStarships(startingIndex: number, amountToReturn: number) {
+    this.httpService.getStarships(new StarshipQueryRequestDto(startingIndex, amountToReturn))
+    .subscribe(
+      response => {
+        if (response.status === 'FAILURE') {
+          // handle error
+        } else {
+          this.allStarships = response.starships;
+          this.allStarshipsCount = response.allStarshipsCount;
+        }
+      },
+      error => {
+        // handle error
+      }
+    );
+  }
 
-  swapElements(event: CdkDragDrop<string[]>) {
+  private swapElements(event: CdkDragDrop<string[]>) {
     switch (event.container.id) {
       case 'fightingSideTwo': {
         this.swap(this.fightingSideTwo);
@@ -105,12 +99,11 @@ export class AppComponent {
     }
   }
 
-  private swap(array: string[]) {
+  private swap(array: Starship[]) {
     if (array.length > 0) {
       this.allStarships.push(array[0]);
       delete array[0];
       array.length = 0;
     }
   }
-
 }

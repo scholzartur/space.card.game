@@ -1,10 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { CardDetailsDto } from 'src/app/dtos/view/card-details.dto';
 
-export interface CardDetailsData {
-  animal: string;
-  name: string;
-}
 
 @Component({
   selector: 'app-card-details-modal',
@@ -15,7 +12,7 @@ export class CardDetailsModalComponent  {
 
   constructor(
     public dialogRef: MatDialogRef<CardDetailsModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: CardDetailsData ) {}
+    @Inject(MAT_DIALOG_DATA) public data: CardDetailsDto ) {}
 
   onNoClick(): void {
     this.dialogRef.close();
