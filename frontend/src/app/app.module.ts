@@ -12,10 +12,12 @@ import { AppComponent } from './app.component';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 import '../polyfills';
+import { CardDetailsModalComponent } from './card-details-modal/card-details-modal.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CardDetailsModalComponent
   ],
   imports: [
     BrowserModule,

@@ -8,15 +8,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 8px 0;
-}
-
 p {
   margin: 0;
 }
@@ -109,21 +100,22 @@ svg#rocket {
 
 .grid-container {
   display: grid;
-  /* grid-column-gap: 50px;*/
-  /* grid-row-gap: 50px; */
+  margin-bottom: 100px;
+  margin-top: 100px;
   grid-template-columns: auto auto auto;
   justify-content: space-evenly
 }
 
 
-.example-card {
+.battle-wrapper-card {
   max-width: 400px;
+  max-height: 90px;
+}
+.starship-wrapper-card {
+  max-width: 400px;
+  margin-left: 37%;
 }
 
-.example-header-image {
-  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-  background-size: cover;
-}
 
 body {
   font-family: Roboto, Arial, sans-serif;
@@ -133,10 +125,4 @@ body {
 .basic-container {
   padding: 30px;
 }
-.version-info {
-  font-size: 8pt;
-  float: right;
-  margin: 8px;
-}
-
 
