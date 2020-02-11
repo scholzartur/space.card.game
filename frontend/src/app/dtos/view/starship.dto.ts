@@ -1,6 +1,6 @@
 export class Starship {
   id: number;
-  amountOfPeopleIinTheCrew: number;
+  amountOfPeopleInCrew: number;
   amountOfWins: number;
   name: string;
   fightingPotential: number;

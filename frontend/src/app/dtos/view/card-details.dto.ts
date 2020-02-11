@@ -1,4 +1,5 @@
+import { Starship } from "./starship.dto";
+
 export interface CardDetailsDto {
-  animal: string;
-  name: string;
+  starship: Starship;
 }

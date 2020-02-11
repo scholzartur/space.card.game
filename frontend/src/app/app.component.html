@@ -31,7 +31,7 @@
   </mat-card>
 
   <div>
-    <button mat-raised-button (click)="openDialog()" color="primary">Primary</button>
+    <button mat-raised-button  color="primary">Primary</button>
   </div>
 
   <mat-card class="battle-wrapper-card">
@@ -67,7 +67,10 @@
           [cdkDropListConnectedTo]="[fightingSideOneList, fightingSideTwoList]"
           class="example-list"
           (cdkDropListDropped)="drop($event)">
-          <div id="starships2" class="example-box" *ngFor="let item of allStarships" cdkDrag>{{item.name}}</div>
+          <div id="starships2" class="example-box" *ngFor="let item of allStarships" cdkDrag>
+            {{item.name}}
+            <button mat-raised-button (click)="openDialog(item)">Details</button>
+          </div>
       </div>
     </mat-card-content>
   </mat-card>

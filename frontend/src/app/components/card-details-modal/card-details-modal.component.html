@@ -1,12 +1,8 @@
-<h1 mat-dialog-title>Hi --</h1>
+<h1 mat-dialog-title>{{data.starship.name}}</h1>
 <div mat-dialog-content>
-  <p>What's your favorite animal?</p>
-  <mat-form-field>
-    <mat-label>Favorite Animal</mat-label>
-    <input matInput [(ngModel)]="data.animal">
-  </mat-form-field>
+  <p>People in crew: {{data.starship.amountOfPeopleInCrew}}</p>
+  <p>Victories: {{data.starship.amountOfWins}}</p>
+  <p>Fighting potential: {{data.starship.fightingPotential}}
+    (currently based on crew only)</p>
 </div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>
-</div>
+

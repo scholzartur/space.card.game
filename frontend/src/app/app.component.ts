@@ -14,22 +14,16 @@ import { Starship } from './dtos/view/starship.dto';
 })
 export class AppComponent {
 
-  animal = 'ee';
-  name = 'ss';
-
   pageEvent: PageEvent;
-  pageIndex: number;
   pageSize = 5;
   allStarshipsCount = 0;
-
   title = 'space-card-game';
-
   allStarships: Starship[] = [];
   fightingSideOne: Starship[] = [];
   fightingSideTwo: Starship[] = [];
 
   constructor(public dialog: MatDialog, public httpService: SpaceHttpService) {
-    this.getStarships(1, 5);
+    this.getStarships(1, this.pageSize);
   }
 
   public getServerData(event?: PageEvent) {
@@ -39,15 +33,15 @@ export class AppComponent {
   }
 
 
-  openDialog(): void {
+  openDialog(item: Starship): void {
     const dialogRef = this.dialog.open(CardDetailsModalComponent, {
-      width: '250px',
-      data: {name: this.name, animal: this.animal}
+      width: '400px',
+      data: {starship: item}
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.animal = result;
+      //this.animal = result;
     });
   }
 
@@ -69,6 +63,7 @@ export class AppComponent {
         event.currentIndex);
     }
   }
+
   private getStarships(startingIndex: number, amountToReturn: number) {
     this.httpService.getStarships(new StarshipQueryRequestDto(startingIndex, amountToReturn))
     .subscribe(
