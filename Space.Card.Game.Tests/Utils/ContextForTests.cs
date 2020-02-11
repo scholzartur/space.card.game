@@ -12,7 +12,8 @@ namespace Space.Card.Game.Tests.Utils
         public ContextForTests GetContextWrapper()
         {
             var options = new DbContextOptionsBuilder<ApiContext>()
-                .UseInMemoryDatabase(databaseName: "InMemoryTempDb")
+                // Make sure that db names wont double in pararell executions
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                 .Options;
 
             context = new ApiContext(options);
@@ -47,6 +48,11 @@ namespace Space.Card.Game.Tests.Utils
                 new Starship(2)
                 {
                     Name = "Starship " + 12,
+                });
+            context.Starships.Add(
+                new Starship(3)
+                {
+                    Name = "Starship " + 13,
                 });
 
             context.SaveChanges();

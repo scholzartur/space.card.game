@@ -1,13 +1,9 @@
 ﻿using Space.Card.Game.WebApi.Dtos;
 using Space.Card.Game.WebApi.Interfaces.Base;
 using Space.Card.Game.WebApi.Interfaces.Queries;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using Space.Card.Game.WebApi.Infrastructure;
-using Space.Card.Game.WebApi.Model;
 
 namespace Space.Card.Game.WebApi.Handlers.Queires
 {

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Security.Cryptography;
-using System.Threading.Tasks;
-
+﻿
 namespace Space.Card.Game.WebApi.Common
 {
     public class Messages

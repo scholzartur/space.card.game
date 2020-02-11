@@ -16,7 +16,7 @@ p {
   height: 60px;
   display: flex;
   align-items: center;
-  background-color: #1976d2;
+  background-color: #3f51b5;
   color: white;
   font-weight: 600;
   width: auto;
@@ -50,7 +50,7 @@ svg#rocket {
   vertical-align: top;
 }
 
-.example-list {
+.drop-list {
   border: solid 1px #ccc;
   min-height: 60px;
   background: white;
@@ -59,7 +59,7 @@ svg#rocket {
   display: block;
 }
 
-.example-box {
+.drop-box {
   padding: 20px 10px;
   border-bottom: solid 1px #ccc;
   color: rgba(0, 0, 0, 0.87);
@@ -89,19 +89,19 @@ svg#rocket {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-.example-box:last-child {
+.drop-box:last-child {
   border: none;
 }
 
-.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+.drop-list.cdk-drop-list-dragging .drop-box:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
 
 .grid-container {
   display: grid;
-  margin-bottom: 80px;
-  margin-top: 80px;
+  margin-bottom: 40px;
+  margin-top: 40px;
   grid-template-columns: auto auto auto;
   justify-content: space-evenly
 }
@@ -109,7 +109,7 @@ svg#rocket {
 
 .battle-wrapper-card {
   max-width: 400px;
-  max-height: 90px;
+  max-height: 115px;
 }
 .starship-wrapper-card {
   max-width: 400px;
@@ -124,5 +124,11 @@ body {
 
 .basic-container {
   padding: 30px;
+}
+.fight-btn {
+  margin-top: 45px;
+  width: 100px;
+  height: 50px;
+  font-size: large;
 }
 

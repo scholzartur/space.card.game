@@ -1,8 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { StarshipQueryResponseDto } from '../dtos/responses/starship-query-response.dto';
 import { StarshipQueryRequestDto } from '../dtos/requests/starship-query-request.dto';
+import { StarshipQueryResponseDto } from '../dtos/responses/starship-query-response.dto';
+
+import { BattleCommandRequestDto } from '../dtos/requests/battle-command-request.dto';
+import { BattleCommandResponseDto } from '../dtos/responses/battle-command-response.dto';
+
 
 @Injectable()
 export class SpaceHttpService {
@@ -16,5 +20,9 @@ export class SpaceHttpService {
 
   getStarships(request: StarshipQueryRequestDto) {
     return this.http.post(this.apiAddress + 'get-starships', request, this.options) as Observable<StarshipQueryResponseDto>;
+  }
+
+  startBattle(request: BattleCommandRequestDto) {
+    return this.http.post(this.apiAddress + 'start-battle', request, this.options) as Observable<BattleCommandResponseDto>;
   }
 }

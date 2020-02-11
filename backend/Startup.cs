@@ -5,13 +5,10 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Space.Card.Game.WebApi.Infrastructure;
 using Space.Card.Game.WebApi.Dtos;
@@ -20,8 +17,6 @@ using Space.Card.Game.WebApi.Handlers.Commands;
 using Space.Card.Game.WebApi.Handlers.Queires;
 using Space.Card.Game.WebApi.Interfaces;
 using Space.Card.Game.WebApi.Interfaces.Base;
-using Space.Card.Game.WebApi.Interfaces.Commands;
-using Space.Card.Game.WebApi.Interfaces.Queries;
 
 namespace Space.Card.Game.WebApi
 {

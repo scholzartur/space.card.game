@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using FluentAssertions;
 using Space.Card.Game.Tests.Utils;
 using Space.Card.Game.WebApi.Common;
@@ -33,6 +34,7 @@ namespace Space.Card.Game.Tests.Unit
                 //Then
                 result.WinnerFound.Should().BeTrue();
                 result.WinnerShip.Id.Should().Be(starshipTwoId);
+
             }
         }
 
@@ -44,22 +46,26 @@ namespace Space.Card.Game.Tests.Unit
         {
             using (var wrapper = new ContextForTests().GetContextWrapper())
             {
-                //Given
-                var handler = GetBattleCommandHandler(wrapper.context);
-                var request = GetBattleCommandRequest(starshipOneId, starshipTwoId);
+                lock (wrapper.context)
+                {
+                    //Given
+                    var handler = GetBattleCommandHandler(wrapper.context);
+                    var request = GetBattleCommandRequest(starshipOneId, starshipTwoId);
 
-                //When
-                var previousWinCounter = ((IBattleCommandResponse)handler.Execute(request)).WinnerShip.AmountOfWins;
-                var currentWinCounter = ((IBattleCommandResponse)handler.Execute(request)).WinnerShip.AmountOfWins;
-
-                //Then
-                currentWinCounter.Should().Be(previousWinCounter + 1);
+                    //When
+                    var previousWinCounter = ((IBattleCommandResponse)handler.Execute(request)).WinnerShip.AmountOfWins;
+                    var currentWinCounter = ((IBattleCommandResponse)handler.Execute(request)).WinnerShip.AmountOfWins;
+                    Thread.Sleep(100);
+                    //Then
+                    currentWinCounter.Should().Be(previousWinCounter + 1);
+                }
             }
         }
 
         [Theory]
         [InlineData(1, 11)]
         [InlineData(2, 12)]
+        [InlineData(3, 13)]
         public void Assert_that_starships_with_equal_crew_draws(int starshipOneId, int starshipTwoId)
         {
             using (var wrapper = new ContextForTests().GetContextWrapper())

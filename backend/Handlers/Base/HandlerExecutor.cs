@@ -1,9 +1,5 @@
 ﻿using Space.Card.Game.WebApi.Interfaces.Base;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Query.Internal;
 using Space.Card.Game.WebApi.Common;
 using Space.Card.Game.WebApi.Interfaces;
 

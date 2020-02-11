@@ -6,6 +6,7 @@ import { CardDetailsModalComponent } from './components/card-details-modal/card-
 import { SpaceHttpService } from './services/space-http.service';
 import { StarshipQueryRequestDto } from './dtos/requests/starship-query-request.dto';
 import { Starship } from './dtos/view/starship.dto';
+import { BattleCommandRequestDto } from './dtos/requests/battle-command-request.dto';
 
 @Component({
   selector: 'app-root',
@@ -17,10 +18,12 @@ export class AppComponent {
   pageEvent: PageEvent;
   pageSize = 5;
   allStarshipsCount = 0;
-  title = 'space-card-game';
   allStarships: Starship[] = [];
   fightingSideOne: Starship[] = [];
   fightingSideTwo: Starship[] = [];
+  fightingSideTwoWon = false;
+  fightingSideOneWon = false;
+  isDraw = false;
 
   constructor(public dialog: MatDialog, public httpService: SpaceHttpService) {
     this.getStarships(1, this.pageSize);
@@ -32,21 +35,36 @@ export class AppComponent {
     return event;
   }
 
+  startBattle() {
+    this.fightingSideOneWon = false;
+    this.fightingSideTwoWon = false;
+    this.isDraw = false;
+    const request = new BattleCommandRequestDto(this.fightingSideOne[0].id, this.fightingSideTwo[0].id);
+
+    this.httpService.startBattle(request).subscribe(response => {
+      if (response.winnerFound) {
+        if (response.winnerShip.id === this.fightingSideOne[0].id) {
+          this.fightingSideOne[0] = response.winnerShip;
+          this.fightingSideOneWon = true;
+        } else {
+          this.fightingSideTwo[0] = response.winnerShip;
+          this.fightingSideTwoWon = true;
+        }
+      } else {{
+        this.isDraw = true;
+      }}
+    });
+  }
 
   openDialog(item: Starship): void {
     const dialogRef = this.dialog.open(CardDetailsModalComponent, {
       width: '400px',
       data: {starship: item}
     });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      //this.animal = result;
-    });
   }
 
   isStarship(drag: CdkDrag) {
-    if (drag.element.nativeElement.textContent !== '') {
+    if (drag.element.nativeElement.innerText.trim() !== '') {
       return true;
     }
     return false;
