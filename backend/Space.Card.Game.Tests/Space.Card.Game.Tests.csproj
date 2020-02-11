@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\backend\Space.Card.Game.WebApi.csproj" />
+    <ProjectReference Include="..\Space.Card.Game.WebApi\Space.Card.Game.WebApi.csproj" />
   </ItemGroup>
 
 </Project>

@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Space.Card.Game.Tests\**" />
+    <Content Remove="Space.Card.Game.Tests\**" />
+    <EmbeddedResource Remove="Space.Card.Game.Tests\**" />
+    <None Remove="Space.Card.Game.Tests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.1" />
