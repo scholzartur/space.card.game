@@ -17,6 +17,7 @@ export class AppViewService {
 
   public getStarshipsOnPageChange(viewState: AppViewStateDto, event?: PageEvent) {
     const startingIndex = event.pageSize * event.pageIndex;
+    viewState.pageSize = event.pageSize;
     this.getStarships(startingIndex, viewState);
     return event;
   }
