@@ -15,20 +15,20 @@
   <mat-card class="battle-wrapper-card">
     <mat-card-header>
       <mat-card-title>Battle slot #1
-        <span *ngIf="fightingSideOneWon">- WIINNER!</span>
-        <span *ngIf="isDraw">- DRAW!</span>
+        <span *ngIf="viewState.fightingSideOneWon">- WIINNER!</span>
+        <span *ngIf="viewState.isDraw">- DRAW!</span>
       </mat-card-title>
     </mat-card-header>
     <mat-card-content class="dragList-container" >
       <div id="fightingSideOne"
       cdkDropList
       #fightingSideOneList="cdkDropList"
-      [cdkDropListData]="fightingSideOne"
+      [cdkDropListData]="viewState.fightingSideOne"
       [cdkDropListConnectedTo]="[allStarshipsList]"
-      [cdkDropListEnterPredicate]="isStarship"
+      [cdkDropListEnterPredicate]="viewService.isStarship"
       class="drop-list"
       (cdkDropListDropped)="drop($event)">
-      <div class="drop-box" *ngFor="let item of fightingSideOne" cdkDrag>
+      <div class="drop-box" *ngFor="let item of viewState.fightingSideOne" cdkDrag>
         {{item.name}}
         <button *ngIf="item.name" mat-raised-button (click)="openDialog(item)">Details</button>
       </div>
@@ -36,25 +36,25 @@
     </mat-card-content>
   </mat-card>
   <div>
-    <button class="fight-btn" (click)="startBattle()" mat-raised-button color="primary">Fight!</button>
+    <button class="fight-btn" (click)="viewService.startBattle(viewState)" mat-raised-button color="primary">Fight!</button>
   </div>
   <mat-card class="battle-wrapper-card">
     <mat-card-header>
       <mat-card-title>Battle slot #2
-        <span *ngIf="fightingSideTwoWon">- WIINNER!</span>
-        <span *ngIf="isDraw">- DRAW!</span>
+        <span *ngIf="viewState.fightingSideTwoWon">- WIINNER!</span>
+        <span *ngIf="viewState.isDraw">- DRAW!</span>
       </mat-card-title>
     </mat-card-header>
     <mat-card-content class="dragList-container" >
       <div id="fightingSideTwo"
       cdkDropList
       #fightingSideTwoList="cdkDropList"
-      [cdkDropListData]="fightingSideTwo"
+      [cdkDropListData]="viewState.fightingSideTwo"
       [cdkDropListConnectedTo]="[allStarshipsList]"
-      [cdkDropListEnterPredicate]="isStarship"
+      [cdkDropListEnterPredicate]="viewService.isStarship"
       class="drop-list"
       (cdkDropListDropped)="drop($event)">
-      <div class="drop-box" *ngFor="let item of fightingSideTwo" cdkDrag>
+      <div class="drop-box" *ngFor="let item of viewState.fightingSideTwo" cdkDrag>
         {{item.name}}
         <button *ngIf="item.name" mat-raised-button (click)="openDialog(item)">Details</button>
       </div>
@@ -72,11 +72,11 @@
         <div id="starships"
         cdkDropList
           #allStarshipsList="cdkDropList"
-          [cdkDropListData]="allStarships"
+          [cdkDropListData]="viewState.allStarships"
           [cdkDropListConnectedTo]="[fightingSideOneList, fightingSideTwoList]"
           class="drop-list"
           (cdkDropListDropped)="drop($event)">
-          <div id="starships2" class="drop-box" *ngFor="let item of allStarships" cdkDrag>
+          <div id="starships2" class="drop-box" *ngFor="let item of viewState.allStarships" cdkDrag>
             {{item.name}}
             <button *ngIf="item.name" mat-raised-button (click)="openDialog(item)">Details</button>
           </div>
@@ -84,9 +84,9 @@
     </mat-card-content>
   </mat-card>
 </div>
-<mat-paginator [length]="allStarshipsCount"
-               [pageSize]=5
+<mat-paginator [length]="viewState.allStarshipsCount"
+               [pageSize]="viewState.pageSize"
                [pageSizeOptions]="[5, 10]"
-               (page)="pageEvent = getServerData($event)">
+               (page)="viewState.pageEvent = viewService.getStarshipsOnPageChange(viewState, $event)">
 </mat-paginator>
 <router-outlet></router-outlet>

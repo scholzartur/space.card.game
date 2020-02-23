@@ -14,6 +14,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { SpaceHttpService } from './services/space-http.service';
 
 import '../polyfills';
+import { AppViewService } from './services/app-view.service';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import '../polyfills';
   ],
   providers: [
     SpaceHttpService,
+    AppViewService,
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
   ],
   entryComponents: [AppComponent],
