@@ -1,13 +1,13 @@
 import { PageEvent } from '@angular/material/paginator';
-import { Starship } from './starship.dto';
+import { StarshipDto } from './starship.dto';
 
-export interface AppViewState {
+export interface AppViewStateDto {
   pageEvent?: PageEvent;
   pageSize: number;
   allStarshipsCount: number;
-  allStarships: Starship[];
-  fightingSideOne: Starship[];
-  fightingSideTwo: Starship[];
+  allStarships: StarshipDto[];
+  fightingSideOne: StarshipDto[];
+  fightingSideTwo: StarshipDto[];
   fightingSideTwoWon: boolean;
   fightingSideOneWon: boolean;
   isDraw: boolean;

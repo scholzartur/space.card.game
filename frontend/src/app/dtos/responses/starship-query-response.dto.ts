@@ -1,7 +1,7 @@
 import { ResponseBaseDto } from './response-base.dto';
-import { Starship } from '../view/starship.dto';
+import { StarshipDto } from '../view/starship.dto';
 
 export class StarshipQueryResponseDto extends ResponseBaseDto {
-  starships: Starship[];
+  starships: StarshipDto[];
   allStarshipsCount: number;
 }

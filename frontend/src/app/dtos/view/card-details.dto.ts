@@ -1,5 +1,5 @@
-import { Starship } from "./starship.dto";
+import { StarshipDto } from './starship.dto';
 
 export interface CardDetailsDto {
-  starship: Starship;
+  starship: StarshipDto;
 }

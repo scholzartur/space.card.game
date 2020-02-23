@@ -1,11 +1,7 @@
-import { Component, Inject } from '@angular/core';
-import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';
-import { PageEvent } from '@angular/material/paginator';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { CardDetailsModalComponent } from './components/card-details-modal/card-details-modal.component';
-import { Starship } from './dtos/view/starship.dto';
 import { AppViewService } from './services/app-view.service';
-import { AppViewState } from './dtos/view/app-view-state.dto';
+import { AppViewStateDto } from './dtos/view/app-view-state.dto';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +11,7 @@ import { AppViewState } from './dtos/view/app-view-state.dto';
 
 export class AppComponent {
 
-  viewState: AppViewState = {
+  viewState: AppViewStateDto = {
     pageSize: 5,
     allStarshipsCount: 0,
     allStarships: [],
@@ -28,24 +24,5 @@ export class AppComponent {
 
   constructor(public dialog: MatDialog, public viewService: AppViewService) {
     this.viewService.getStarships(1, this.viewState);
-  }
-
-  public openDialog(item: Starship): void {
-    this.dialog.open(CardDetailsModalComponent, {
-      width: '400px',
-      data: {starship: item}
-    });
-  }
-
-  public drop(event: CdkDragDrop<string[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      this.viewService.swapElements(event, this.viewState);
-      transferArrayItem(event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex);
-    }
   }
 }

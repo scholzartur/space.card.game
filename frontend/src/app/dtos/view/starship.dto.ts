@@ -1,4 +1,4 @@
-export class Starship {
+export class StarshipDto {
   id: number;
   amountOfPeopleInCrew: number;
   amountOfWins: number;

@@ -8,7 +8,7 @@
       </g>
     </g>
   </svg>
-  <span>WECLOME TO SPACE CARD GAME</span>
+  <span id="tittle">WECLOME TO SPACE CARD GAME</span>
 </div>
 
 <div class="grid-container">
@@ -27,10 +27,10 @@
       [cdkDropListConnectedTo]="[allStarshipsList]"
       [cdkDropListEnterPredicate]="viewService.isStarship"
       class="drop-list"
-      (cdkDropListDropped)="drop($event)">
+      (cdkDropListDropped)="viewService.drop($event, viewState)">
       <div class="drop-box" *ngFor="let item of viewState.fightingSideOne" cdkDrag>
         {{item.name}}
-        <button *ngIf="item.name" mat-raised-button (click)="openDialog(item)">Details</button>
+        <button *ngIf="item.name" mat-raised-button (click)="viewService.openDialog(item, dialog)">Details</button>
       </div>
     </div>
     </mat-card-content>
@@ -53,10 +53,10 @@
       [cdkDropListConnectedTo]="[allStarshipsList]"
       [cdkDropListEnterPredicate]="viewService.isStarship"
       class="drop-list"
-      (cdkDropListDropped)="drop($event)">
+      (cdkDropListDropped)="viewService.drop($event, viewState)">
       <div class="drop-box" *ngFor="let item of viewState.fightingSideTwo" cdkDrag>
         {{item.name}}
-        <button *ngIf="item.name" mat-raised-button (click)="openDialog(item)">Details</button>
+        <button *ngIf="item.name" mat-raised-button (click)="viewService.openDialog(item, dialog)">Details</button>
       </div>
     </div>
     </mat-card-content>
@@ -75,10 +75,10 @@
           [cdkDropListData]="viewState.allStarships"
           [cdkDropListConnectedTo]="[fightingSideOneList, fightingSideTwoList]"
           class="drop-list"
-          (cdkDropListDropped)="drop($event)">
+          (cdkDropListDropped)="viewService.drop($event, viewState)">
           <div id="starships2" class="drop-box" *ngFor="let item of viewState.allStarships" cdkDrag>
             {{item.name}}
-            <button *ngIf="item.name" mat-raised-button (click)="openDialog(item)">Details</button>
+            <button *ngIf="item.name" mat-raised-button (click)="viewService.openDialog(item, dialog)">Details</button>
           </div>
       </div>
     </mat-card-content>
